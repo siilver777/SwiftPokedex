@@ -14,7 +14,7 @@
 		D7A5E1C21DF7205400169531 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D7A5E1C11DF7205400169531 /* Assets.xcassets */; };
 		D7A5E1C51DF7205400169531 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D7A5E1C31DF7205400169531 /* LaunchScreen.storyboard */; };
 		D7A5E1CF1DF8056400169531 /* PokemonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A5E1CE1DF8056400169531 /* PokemonTableViewCell.swift */; };
-		D7A5E1D11DF807D200169531 /* NetworkFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A5E1D01DF807D200169531 /* NetworkFunctions.swift */; };
+		D7A5E1D11DF807D200169531 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A5E1D01DF807D200169531 /* Network.swift */; };
 		D7A5E1D31DF8093400169531 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A5E1D21DF8093400169531 /* API.swift */; };
 		D7A5E1F31DF80FDA00169531 /* neededjson.txt in Resources */ = {isa = PBXBuildFile; fileRef = D7A5E1F21DF80FDA00169531 /* neededjson.txt */; };
 /* End PBXBuildFile section */
@@ -31,7 +31,7 @@
 		D7A5E1C41DF7205400169531 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D7A5E1C61DF7205400169531 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D7A5E1CE1DF8056400169531 /* PokemonTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PokemonTableViewCell.swift; sourceTree = "<group>"; };
-		D7A5E1D01DF807D200169531 /* NetworkFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkFunctions.swift; sourceTree = "<group>"; };
+		D7A5E1D01DF807D200169531 /* Network.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		D7A5E1D21DF8093400169531 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		D7A5E1F21DF80FDA00169531 /* neededjson.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = neededjson.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -88,7 +88,7 @@
 			children = (
 				D7A5E1BA1DF7205400169531 /* AppDelegate.swift */,
 				D7A5E1BC1DF7205400169531 /* ListViewController.swift */,
-				D7A5E1D01DF807D200169531 /* NetworkFunctions.swift */,
+				D7A5E1D01DF807D200169531 /* Network.swift */,
 				D7A5E1D21DF8093400169531 /* API.swift */,
 				D7A5E1F21DF80FDA00169531 /* neededjson.txt */,
 				D7A5E1CE1DF8056400169531 /* PokemonTableViewCell.swift */,
@@ -226,7 +226,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D7A5E1D11DF807D200169531 /* NetworkFunctions.swift in Sources */,
+				D7A5E1D11DF807D200169531 /* Network.swift in Sources */,
 				D7A5E1CF1DF8056400169531 /* PokemonTableViewCell.swift in Sources */,
 				D7A5E1BD1DF7205400169531 /* ListViewController.swift in Sources */,
 				D7A5E1BB1DF7205400169531 /* AppDelegate.swift in Sources */,
