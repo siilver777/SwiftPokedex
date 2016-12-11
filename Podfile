@@ -7,5 +7,6 @@ target 'PokeStats' do
 
   # Pods for PokeStats
   pod 'SwiftyJSON'
+  pod 'Alamofire'
   pod 'PKHUD'
 end
