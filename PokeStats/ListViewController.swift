@@ -13,12 +13,16 @@ import SwiftyJSON
 
 class ListViewController: UITableViewController {
     
-    var pokemons = [String]()
+    var pokemons = [(Int, String)]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         fetchPokemons()
+        
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(fetchPokemons), for: .valueChanged)
+        tableView.refreshControl = refreshControl
     }
 
     override func didReceiveMemoryWarning() {
@@ -40,9 +44,17 @@ class ListViewController: UITableViewController {
             return PokemonTableViewCell(style: .default, reuseIdentifier: "PokemonTableViewCell")
         }
         
-        cell.pokemonNameLabel.text = pokemons[indexPath.row]
+        cell.pokemonNameLabel.text = pokemons[indexPath.row].1
+        cell.pokemonNumberLabel.text = "#" + String(pokemons[indexPath.row].0)
         
         return cell
+    }
+    
+    // MARK: - UITableViewDelegate
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        performSegue(withIdentifier: "showPokemon", sender: self)
     }
     
     // MARK: - Misc
@@ -53,17 +65,31 @@ class ListViewController: UITableViewController {
             case .success(let value):
                 let json = JSON(value).arrayValue
                 
+                self.pokemons.removeAll(keepingCapacity: true)
+                
                 for pokemon in json {
-                    if let name = pokemon["name"].string {
-                        self.pokemons.append(name)
+                    if let name = pokemon["name"].string,
+                        let id = pokemon["id"].int {
+                        self.pokemons.append((id, name))
                     }
                 }
                 self.tableView.reloadData()
                 
+                if let refreshControl = self.tableView.refreshControl {
+                    if refreshControl.isRefreshing {
+                        refreshControl.endRefreshing()
+                    }
+                }
+                
             case .failure(let error):
                 print(error)
+                
+                if let refreshControl = self.tableView.refreshControl {
+                    if refreshControl.isRefreshing {
+                        refreshControl.endRefreshing()
+                    }
+                }
             }
         }
     }
 }
-
