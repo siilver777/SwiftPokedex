@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 import Alamofire
 import SwiftyJSON
@@ -21,6 +22,7 @@ class PokemonViewController: UIViewController {
     @IBOutlet weak var heightLabel: UILabel!
     @IBOutlet weak var weightLabel: UILabel!
     @IBOutlet weak var descriptionTextView: UITextView!
+    @IBOutlet weak var descriptionButton: UIButton!
     
     @IBOutlet weak var pvLabel: UILabel!
     @IBOutlet weak var atkLabel: UILabel!
@@ -31,16 +33,56 @@ class PokemonViewController: UIViewController {
     
     var pokemonId: Int?
     var pokemon: Pokémon!
+    lazy var synthesizer: AVSpeechSynthesizer = {
+        let synthesizer = AVSpeechSynthesizer()
+        synthesizer.delegate = self
+        return synthesizer
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
         loadPokemon()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    @IBAction func favorite(sender: UIButton?) {
+        if let sender = sender {
+            if sender.currentImage == UIImage(named: "favoriteEmpty") {
+                sender.setImage(#imageLiteral(resourceName: "favoriteFilled"), for: .normal)
+            }
+            else {
+                sender.setImage(#imageLiteral(resourceName: "favoriteEmpty"), for: .normal)
+            }
+        }
+    }
+    
+    @IBAction func readDescription() {
+        if synthesizer.isSpeaking {
+            synthesizer.pauseSpeaking(at: .immediate)
+        }
+        else if synthesizer.isPaused {
+            synthesizer.continueSpeaking()
+        }
+        else {
+            let utterance = AVSpeechUtterance(string: pokemon.pokedexDescription)
+            
+            utterance.voice = AVSpeechSynthesisVoice(language: "fr-FR")
+            utterance.rate = 0.55
+            
+            synthesizer.speak(utterance)
+        }
+    }
+    
+    @IBAction func share() {
+        let alert = UIAlertController(title: "Not available", message: "Facebook Sharing is not yet available. Stay tuned!", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        present(alert, animated: true)
     }
     
     func loadPokemon() {
@@ -50,7 +92,6 @@ class PokemonViewController: UIViewController {
             switch response.result {
             case .success(let value):
                 let json = JSON(value)
-                print(json)
                 
                 let pokemon = Pokémon(json: json)
                 self.pokemon = pokemon
@@ -87,12 +128,29 @@ class PokemonViewController: UIViewController {
                             }
                         }
                     }
-                    
                 }
                 
             case .failure(let error):
                 print(error)
             }
         }
+    }
+}
+
+extension PokemonViewController: AVSpeechSynthesizerDelegate {
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didStart utterance: AVSpeechUtterance) {
+        descriptionButton.setImage(#imageLiteral(resourceName: "pauseButton"), for: .normal)
+    }
+    
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didFinish utterance: AVSpeechUtterance) {
+        descriptionButton.setImage(#imageLiteral(resourceName: "playButton"), for: .normal)
+    }
+    
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didPause utterance: AVSpeechUtterance) {
+        descriptionButton.setImage(#imageLiteral(resourceName: "playButton"), for: .normal)
+    }
+    
+    func speechSynthesizer(_ synthesizer: AVSpeechSynthesizer, didContinue utterance: AVSpeechUtterance) {
+        descriptionButton.setImage(#imageLiteral(resourceName: "pauseButton"), for: .normal)
     }
 }
