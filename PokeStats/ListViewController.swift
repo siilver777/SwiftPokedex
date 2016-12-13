@@ -14,6 +14,7 @@ import SwiftyJSON
 class ListViewController: UITableViewController {
     
     var pokemons = [(Int, String)]()
+    let miniatureQueue = DispatchQueue(label: "miniatures")
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,8 +54,22 @@ class ListViewController: UITableViewController {
             return PokemonTableViewCell(style: .default, reuseIdentifier: "PokemonTableViewCell")
         }
         
-        cell.pokemonNameLabel.text = pokemons[indexPath.row].1
-        cell.pokemonNumberLabel.text = "#" + String(pokemons[indexPath.row].0)
+        // Reset (if reused)
+        cell.pokemonImageView.image = nil
+        let pokemon = pokemons[indexPath.row]
+        
+        cell.pokemonNameLabel.text = pokemon.1
+        cell.pokemonNumberLabel.text = "#" + String(pokemon.0)
+        
+        miniatureQueue.async {
+            if let data = try? Data(contentsOf: URL(string: API.mini(no: pokemon.0))!) {
+                let artwork = UIImage(data: data)
+                DispatchQueue.main.async {
+                    cell.pokemonImageView.image = artwork
+                }
+            }
+        }
+        
         
         return cell
     }
