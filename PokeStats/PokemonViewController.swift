@@ -31,13 +31,13 @@ class PokemonViewController: UIViewController {
     
     var pokemonId: Int?
     var pokemon: Pokémon!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         loadPokemon()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -54,6 +54,41 @@ class PokemonViewController: UIViewController {
                 
                 let pokemon = Pokémon(json: json)
                 self.pokemon = pokemon
+                
+                // update UI
+                DispatchQueue.main.async {
+                    self.navigationItem.title = pokemon.name
+                    
+                    self.numberLabel.text = "Kanto #00" + String(pokemon.id)
+                    self.firstTypeImageView.image = UIImage(named: "type\(pokemon.type1.rawValue)")
+                    if let type2 = pokemon.type2 {
+                        self.secondTypeImageView.image = UIImage(named: "type\(type2.rawValue)")
+                    }
+                    else {
+                        self.secondTypeImageView.image = nil
+                    }
+                    self.heightLabel.text = String(pokemon.height) + "m"
+                    self.weightLabel.text = String(pokemon.weight) + "kg"
+                    self.descriptionTextView.text = pokemon.pokedexDescription
+                    
+                    self.pvLabel.text = String(pokemon.stats.pv)
+                    self.atkLabel.text = String(pokemon.stats.atk)
+                    self.defLabel.text = String(pokemon.stats.def)
+                    self.atkSpeLabel.text = String(pokemon.stats.atkspe)
+                    self.defSpeLabel.text = String(pokemon.stats.defspe)
+                    self.vitLabel.text = String(pokemon.stats.vit)
+                    
+                    let artworkQueue = DispatchQueue(label: "artwork")
+                    artworkQueue.async {
+                        if let data = try? Data(contentsOf: URL(string: API.artwork(no: pokemon.id))!) {
+                            let artwork = UIImage(data: data)
+                            DispatchQueue.main.async {
+                                self.artworkImageView.image = artwork
+                            }
+                        }
+                    }
+                    
+                }
                 
             case .failure(let error):
                 print(error)
