@@ -29,6 +29,15 @@ class ListViewController: UITableViewController {
         super.didReceiveMemoryWarning()
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showPokemon" {
+            if let indexPath = tableView.indexPathForSelectedRow {
+                let destinationViewController = segue.destination as! PokemonViewController
+                destinationViewController.pokemonId = pokemons[indexPath.row].0
+            }
+        }
+    }
+    
     // MARK: - UITableViewDataSource
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -53,8 +62,8 @@ class ListViewController: UITableViewController {
     // MARK: - UITableViewDelegate
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
         performSegue(withIdentifier: "showPokemon", sender: self)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
     
     // MARK: - Misc
