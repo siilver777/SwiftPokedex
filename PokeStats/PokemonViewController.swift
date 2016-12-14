@@ -64,10 +64,12 @@ class PokemonViewController: UIViewController {
     
     @IBAction func readDescription() {
         if synthesizer.isSpeaking {
-            synthesizer.pauseSpeaking(at: .immediate)
-        }
-        else if synthesizer.isPaused {
-            synthesizer.continueSpeaking()
+            if synthesizer.isPaused {
+                synthesizer.continueSpeaking()
+            }
+            else {
+                synthesizer.pauseSpeaking(at: .word)
+            }
         }
         else {
             let utterance = AVSpeechUtterance(string: pokemon.pokedexDescription)
