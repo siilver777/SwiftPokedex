@@ -13,7 +13,7 @@ import SwiftyJSON
 
 class ListViewController: UITableViewController {
     
-    var pokemons = [(Int, String)]()
+    var pokemons = [Pokémon]()
     let miniatureQueue = DispatchQueue(label: "miniatures")
 
     override func viewDidLoad() {
@@ -34,7 +34,7 @@ class ListViewController: UITableViewController {
         if segue.identifier == "showPokemon" {
             if let indexPath = tableView.indexPathForSelectedRow {
                 let destinationViewController = segue.destination as! PokemonViewController
-                destinationViewController.pokemonId = pokemons[indexPath.row].0
+                destinationViewController.pokemon = pokemons[indexPath.row]
             }
         }
     }
@@ -58,11 +58,11 @@ class ListViewController: UITableViewController {
         cell.pokemonImageView.image = nil
         let pokemon = pokemons[indexPath.row]
         
-        cell.pokemonNameLabel.text = pokemon.1
-        cell.pokemonNumberLabel.text = "#" + String(pokemon.0)
+        cell.pokemonNameLabel.text = pokemon.name
+        cell.pokemonNumberLabel.text = "#" + String(pokemon.id)
         
         miniatureQueue.async {
-            if let data = try? Data(contentsOf: URL(string: API.mini(no: pokemon.0))!) {
+            if let data = try? Data(contentsOf: URL(string: API.mini(no: pokemon.id))!) {
                 let artwork = UIImage(data: data)
                 DispatchQueue.main.async {
                     cell.pokemonImageView.image = artwork
@@ -91,11 +91,9 @@ class ListViewController: UITableViewController {
                 
                 self.pokemons.removeAll(keepingCapacity: true)
                 
-                for pokemon in json {
-                    if let name = pokemon["name"].string,
-                        let id = pokemon["id"].int {
-                        self.pokemons.append((id, name))
-                    }
+                for item in json {
+                    let pokemon = Pokémon(json: item)
+                    self.pokemons.append(pokemon)
                 }
                 self.tableView.reloadData()
                 
