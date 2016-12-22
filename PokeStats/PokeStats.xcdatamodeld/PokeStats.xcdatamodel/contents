@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11759" systemVersion="16C67" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Pokemon" representedClassName="Pokemon" syncable="YES">
+        <attribute name="atk" attributeType="Integer 16" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="atkspe" attributeType="Integer 16" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="def" attributeType="Integer 16" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="defspe" attributeType="Integer 16" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="height" attributeType="Double" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="name" attributeType="String" syncable="YES"/>
+        <attribute name="pokedexDescription" attributeType="String" syncable="YES"/>
+        <attribute name="pokedexNumber" attributeType="Integer 16" usesScalarValueType="YES" customClassName="Int" syncable="YES"/>
+        <attribute name="pv" attributeType="Integer 16" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="type1value" attributeType="Integer 16" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="type2value" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="vit" attributeType="Integer 16" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="weight" attributeType="Double" usesScalarValueType="YES" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Pokemon" positionX="-63" positionY="-18" width="128" height="240"/>
+    </elements>
+</model>
