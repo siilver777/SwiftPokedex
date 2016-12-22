@@ -31,7 +31,7 @@ class PokemonViewController: UIViewController {
     @IBOutlet weak var defSpeLabel: UILabel!
     @IBOutlet weak var vitLabel: UILabel!
     
-    var pokemon: Pokémon!
+    var pokemon: Pokemon!
     
     lazy var synthesizer: AVSpeechSynthesizer = {
         let synthesizer = AVSpeechSynthesizer()
@@ -90,7 +90,7 @@ class PokemonViewController: UIViewController {
     func loadUI() {
         self.navigationItem.title = pokemon.name
         
-        self.numberLabel.text = "Kanto #00" + String(pokemon.id)
+        self.numberLabel.text = "Kanto #00" + String(pokemon.pokedexNumber)
         self.firstTypeImageView.image = UIImage(named: "type\(pokemon.type1.rawValue)")
         if let type2 = pokemon.type2 {
             self.secondTypeImageView.image = UIImage(named: "type\(type2.rawValue)")
@@ -108,10 +108,10 @@ class PokemonViewController: UIViewController {
         self.atkSpeLabel.text = String(pokemon.stats.atkspe)
         self.defSpeLabel.text = String(pokemon.stats.defspe)
         self.vitLabel.text = String(pokemon.stats.vit)
-        
+
         let artworkQueue = DispatchQueue(label: "artwork")
         artworkQueue.async {
-            if let data = try? Data(contentsOf: URL(string: API.artwork(no: self.pokemon.id))!) {
+            if let data = try? Data(contentsOf: URL(string: API.artwork(no: Int(self.pokemon.pokedexNumber)))!) {
                 let artwork = UIImage(data: data)
                 DispatchQueue.main.async {
                     self.artworkImageView.image = artwork

@@ -7,25 +7,26 @@
 //
 
 import UIKit
+import CoreData
 
 import Alamofire
 import SwiftyJSON
 
 class ListViewController: UITableViewController {
     
-    var pokemons = [Pokémon]()
+    var pokemons = [Pokemon]()
     let miniatureQueue = DispatchQueue(label: "miniatures")
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        fetchPokemons()
+        loadPokemons()
         
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(fetchPokemons), for: .valueChanged)
         tableView.refreshControl = refreshControl
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -59,17 +60,16 @@ class ListViewController: UITableViewController {
         let pokemon = pokemons[indexPath.row]
         
         cell.pokemonNameLabel.text = pokemon.name
-        cell.pokemonNumberLabel.text = "#" + String(pokemon.id)
+        cell.pokemonNumberLabel.text = "#" + String(pokemon.pokedexNumber)
         
         miniatureQueue.async {
-            if let data = try? Data(contentsOf: URL(string: API.mini(no: pokemon.id))!) {
+            if let data = try? Data(contentsOf: URL(string: API.mini(no: Int(pokemon.pokedexNumber)))!) {
                 let artwork = UIImage(data: data)
                 DispatchQueue.main.async {
                     cell.pokemonImageView.image = artwork
                 }
             }
         }
-        
         
         return cell
     }
@@ -83,6 +83,18 @@ class ListViewController: UITableViewController {
     
     // MARK: - Misc
     
+    func loadPokemons() {
+        let fetchRequest: NSFetchRequest<Pokemon> = Pokemon.fetchRequest()
+        if let context = DataManager.shared.context {
+            if let rows = try? context.fetch(fetchRequest) {
+                for pokemon in rows {
+                    self.pokemons.append(pokemon)
+                }
+                self.tableView.reloadData()
+            }
+        }
+    }
+    
     func fetchPokemons() {
         Alamofire.request(API.pokemons).validate().responseJSON { response in
             switch response.result {
@@ -91,12 +103,19 @@ class ListViewController: UITableViewController {
                 
                 self.pokemons.removeAll(keepingCapacity: true)
                 
-                for item in json {
-                    let pokemon = Pokémon(json: item)
-                    self.pokemons.append(pokemon)
+                if let context = DataManager.shared.context {
+                    for item in json {
+                        if let pokemon = NSEntityDescription.insertNewObject(forEntityName: "Pokemon", into: context) as? Pokemon {
+                            pokemon.populate(json: item)
+                            self.pokemons.append(pokemon)
+                        }
+                    }
+                    DispatchQueue.main.async {
+                        try? context.save()
+                        self.tableView.reloadData()
+                    }
                 }
-                self.tableView.reloadData()
-                
+              
                 if let refreshControl = self.tableView.refreshControl {
                     if refreshControl.isRefreshing {
                         refreshControl.endRefreshing()
