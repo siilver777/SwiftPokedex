@@ -15,6 +15,9 @@ import SwiftyJSON
 class ListViewController: UITableViewController {
     
     var pokemons = [Pokemon]()
+    var filteredPokemons = [Pokemon]()
+    
+    let searchController = UISearchController(searchResultsController: nil)
     let miniatureQueue = DispatchQueue(label: "miniatures")
     
     override func viewDidLoad() {
@@ -26,6 +29,13 @@ class ListViewController: UITableViewController {
         // Fetch new online Pokemons
         fetchPokemons()
         
+        // Search Controller
+        searchController.searchResultsUpdater = self
+        searchController.dimsBackgroundDuringPresentation = false
+        definesPresentationContext = true
+        tableView.tableHeaderView = searchController.searchBar
+        
+        // Table View Refresh Control
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(fetchPokemons), for: .valueChanged)
         tableView.refreshControl = refreshControl
@@ -39,11 +49,19 @@ class ListViewController: UITableViewController {
         if segue.identifier == "showPokemon" {
             if let indexPath = tableView.indexPathForSelectedRow {
                 let destinationViewController = segue.destination as! PokemonViewController
-                destinationViewController.pokemon = pokemons[indexPath.row]
+                
+                let pokemon: Pokemon = {
+                    if searchController.isActive && searchController.searchBar.text != "" {
+                        return filteredPokemons[indexPath.row]
+                    }
+                   return pokemons[indexPath.row]
+                }()
+                
+                destinationViewController.pokemon = pokemon
             }
         }
     }
-    
+
     // MARK: - UITableViewDataSource
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -51,6 +69,9 @@ class ListViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if searchController.isActive && searchController.searchBar.text != "" {
+            return filteredPokemons.count
+        }
         return pokemons.count
     }
     
@@ -61,7 +82,14 @@ class ListViewController: UITableViewController {
         
         // Reset (if reused)
         cell.pokemonImageView.image = nil
-        let pokemon = pokemons[indexPath.row]
+        
+        let pokemon: Pokemon = {
+            if searchController.isActive && searchController.searchBar.text != "" {
+                return filteredPokemons[indexPath.row]
+            }
+            return pokemons[indexPath.row]
+        }()
+        
         
         cell.pokemonNameLabel.text = pokemon.name
         cell.pokemonNumberLabel.text = "#" + pokemon.number.stringValue
@@ -108,7 +136,9 @@ class ListViewController: UITableViewController {
         if let context = DataManager.shared.context {
             if let rows = try? context.fetch(fetchRequest) {
                 for pokemon in rows {
-                    self.pokemons.append(pokemon)
+                    if !self.pokemons.contains(where: { pkmn in pkmn.number.intValue == pokemon.number.intValue }) {
+                        self.pokemons.append(pokemon)
+                    }
                 }
                 self.tableView.reloadData()
             }
@@ -153,5 +183,14 @@ class ListViewController: UITableViewController {
                 }
             }
         }
+    }
+}
+
+extension ListViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        filteredPokemons = pokemons.filter {
+            $0.name.lowercased().contains(searchController.searchBar.text!.lowercased())
+        }
+        tableView.reloadData()
     }
 }
