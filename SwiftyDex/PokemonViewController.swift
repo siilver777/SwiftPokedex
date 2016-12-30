@@ -35,6 +35,7 @@ class PokemonViewController: UIViewController {
     @IBOutlet weak var favoriteButton: UIButton!
     
     var pokemon: Pokemon!
+    var audioPlayer: AVAudioPlayer?
     
     lazy var synthesizer: AVSpeechSynthesizer = {
         let synthesizer = AVSpeechSynthesizer()
@@ -47,6 +48,10 @@ class PokemonViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         loadUI()
+        
+        artworkImageView.isUserInteractionEnabled = true
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(playSound))
+        artworkImageView.addGestureRecognizer(gesture)
     }
     
     override func didReceiveMemoryWarning() {
@@ -112,8 +117,10 @@ class PokemonViewController: UIViewController {
     }
     
     func loadUI() {
+        // Navigation bar
         navigationItem.title = pokemon.name
         
+        // Main information
         numberLabel.text = "Kanto #00" + String(pokemon.pokedexNumber)
         firstTypeImageView.image = UIImage(named: "type\(pokemon.type1.rawValue)")
         if let type2 = pokemon.type2 {
@@ -126,12 +133,16 @@ class PokemonViewController: UIViewController {
         weightLabel.text = String(pokemon.weight) + "kg"
         descriptionTextView.text = pokemon.pokedexDescription
         
+        // Stats
+        
         pvLabel.text = String(pokemon.stats.pv)
         atkLabel.text = String(pokemon.stats.atk)
         defLabel.text = String(pokemon.stats.def)
         atkSpeLabel.text = String(pokemon.stats.atkspe)
         defSpeLabel.text = String(pokemon.stats.defspe)
         vitLabel.text = String(pokemon.stats.vit)
+        
+        // Favorite button state
         
         if pokemon.favorite {
             favoriteButton.setImage(#imageLiteral(resourceName: "favoriteFilled"), for: .normal)
@@ -140,15 +151,55 @@ class PokemonViewController: UIViewController {
             favoriteButton.setImage(#imageLiteral(resourceName: "favoriteEmpty"), for: .normal)
         }
         
+        // Artwork
+        
         let artworkQueue = DispatchQueue(label: "artwork")
         artworkQueue.async {
-            if  let url = URL(string: API.artwork(no: Int(self.pokemon.pokedexNumber))),
+            if let url = URL(string: API.artwork(no: Int(self.pokemon.pokedexNumber))),
                 let data = try? Data(contentsOf: url) {
                 let artwork = UIImage(data: data)
                 DispatchQueue.main.async {
                     self.artworkImageView.image = artwork
                 }
             }
+        }
+        
+        // Sound
+        
+        if let soundPath = FileManager.documentsURL(childPath: "sound_\(pokemon.pokedexNumber).mp3") {
+            print(soundPath)
+            if FileManager.default.fileExists(atPath: soundPath.path) {
+                print("local")
+                // Load from disk
+                self.audioPlayer = try? AVAudioPlayer(contentsOf: soundPath)
+                print(audioPlayer ?? "local player not ok")
+            }
+            else {
+                print("online")
+                // Download
+                if let soundUrl = URL(string: API.sound(no: Int(pokemon.pokedexNumber))),
+                    let data = try? Data(contentsOf: soundUrl) {
+                    // Save on disk
+                    do {
+                        try data.write(to: soundPath, options: .atomic)
+                    }
+                    catch {
+                        print(error)
+                    }
+                    
+                    // Load the file in the player
+                    self.audioPlayer = try? AVAudioPlayer(data: data)
+                    print(audioPlayer ?? "online player not ok")
+                }
+                
+            }
+        }
+    }
+    
+    func playSound() {
+        print("playSound")
+        if let audioPlayer = audioPlayer {
+            print(audioPlayer.play())
         }
     }
 }
