@@ -23,6 +23,7 @@ class DataManager {
                     
                     let context = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
                     context.persistentStoreCoordinator = storeCoordinator
+                    context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
                     self.context = context
                 }
             }

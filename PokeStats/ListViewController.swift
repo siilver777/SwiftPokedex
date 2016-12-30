@@ -20,7 +20,11 @@ class ListViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Load offline Pokemons
         loadPokemons()
+        
+        // Fetch new online Pokemons
+        fetchPokemons()
         
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(fetchPokemons), for: .valueChanged)
@@ -85,6 +89,8 @@ class ListViewController: UITableViewController {
     
     func loadPokemons() {
         let fetchRequest: NSFetchRequest<Pokemon> = Pokemon.fetchRequest()
+        let sortDescriptor = NSSortDescriptor(key: "pokedexNumber", ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
         if let context = DataManager.shared.context {
             if let rows = try? context.fetch(fetchRequest) {
                 for pokemon in rows {
@@ -101,13 +107,18 @@ class ListViewController: UITableViewController {
             case .success(let value):
                 let json = JSON(value).arrayValue
                 
-                self.pokemons.removeAll(keepingCapacity: true)
-                
                 if let context = DataManager.shared.context {
                     for item in json {
                         if let pokemon = NSEntityDescription.insertNewObject(forEntityName: "Pokemon", into: context) as? Pokemon {
                             pokemon.populate(json: item)
-                            self.pokemons.append(pokemon)
+                            
+                            if !self.pokemons.contains(where: { pkmn in pkmn.pokedexNumber == pokemon.pokedexNumber }) {
+                                print("\(pokemon.name) is not in")
+                                self.pokemons.append(pokemon)
+                            }
+                            else {
+                                print("\(pokemon.name) is already in")
+                            }
                         }
                     }
                     DispatchQueue.main.async {
