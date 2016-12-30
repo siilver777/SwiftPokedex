@@ -64,13 +64,27 @@ class ListViewController: UITableViewController {
         let pokemon = pokemons[indexPath.row]
         
         cell.pokemonNameLabel.text = pokemon.name
-        cell.pokemonNumberLabel.text = "#" + String(pokemon.pokedexNumber)
+        cell.pokemonNumberLabel.text = "#" + pokemon.number.stringValue
         
-        miniatureQueue.async {
-            if let data = try? Data(contentsOf: URL(string: API.mini(no: Int(pokemon.pokedexNumber)))!) {
-                let artwork = UIImage(data: data)
-                DispatchQueue.main.async {
-                    cell.pokemonImageView.image = artwork
+        if let miniaturePath = FileManager.documentsURL(childPath: "mini_\(pokemon.number).png") {
+            if FileManager.default.fileExists(atPath: miniaturePath.path) {
+                // Load from disk
+                let miniature = UIImage(contentsOfFile: miniaturePath.path)
+                cell.pokemonImageView.image = miniature
+            }
+            else {
+                // Download and store
+                if let miniatureUrl = URL(string: API.mini(no: pokemon.number.intValue)) {
+                    miniatureQueue.async {
+                        if let data = try? Data(contentsOf: miniatureUrl),
+                            let miniature = UIImage(data: data) {
+                            try? data.write(to: miniaturePath, options: .atomic)
+                            
+                            DispatchQueue.main.async {
+                                cell.pokemonImageView.image = miniature
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -112,12 +126,8 @@ class ListViewController: UITableViewController {
                         if let pokemon = NSEntityDescription.insertNewObject(forEntityName: "Pokemon", into: context) as? Pokemon {
                             pokemon.populate(json: item)
                             
-                            if !self.pokemons.contains(where: { pkmn in pkmn.pokedexNumber == pokemon.pokedexNumber }) {
-                                print("\(pokemon.name) is not in")
+                            if !self.pokemons.contains(where: { pkmn in pkmn.number.intValue == pokemon.number.intValue }) {
                                 self.pokemons.append(pokemon)
-                            }
-                            else {
-                                print("\(pokemon.name) is already in")
                             }
                         }
                     }

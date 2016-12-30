@@ -14,6 +14,15 @@ import SwiftyJSON
 @objc(Pokemon)
 public class Pokemon: NSManagedObject {
     
+    var number: NSNumber {
+        get {
+            return NSNumber(value: pokedexNumber)
+        }
+        set {
+            pokedexNumber = newValue.int16Value
+        }
+    }
+    
     var type1: Type {
         get {
             return Type(rawValue: Int(type1value))!

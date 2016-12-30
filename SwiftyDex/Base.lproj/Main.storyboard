@@ -13,18 +13,18 @@
         <!--All Pokemons-->
         <scene sceneID="Evi-az-Yte">
             <objects>
-                <tableViewController id="6JT-zD-7ES" customClass="ListViewController" customModule="PokeStats" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="6JT-zD-7ES" customClass="ListViewController" customModule="SwiftyDex" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="80" sectionHeaderHeight="28" sectionFooterHeight="28" id="5ZE-wh-4ka">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <inset key="separatorInset" minX="68" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PokemonTableViewCell" rowHeight="80" id="Mu6-9x-s0I" customClass="PokemonTableViewCell" customModule="PokeStats" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="PokemonTableViewCell" rowHeight="80" id="Mu6-9x-s0I" customClass="PokemonTableViewCell" customModule="SwiftyDex" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="28" width="375" height="80"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Mu6-9x-s0I" id="UFU-3v-Kd5">
-                                    <rect key="frame" x="0.0" y="0.0" width="342" height="80"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="342" height="79"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PNG-xs-AU7">
@@ -88,7 +88,7 @@
         <!--Dracaufeu-->
         <scene sceneID="oKB-3P-3qT">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="Ltf-kQ-wbu" customClass="PokemonViewController" customModule="PokeStats" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="Ltf-kQ-wbu" customClass="PokemonViewController" customModule="SwiftyDex" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="gGI-4x-geR"/>
                         <viewControllerLayoutGuide type="bottom" id="6fc-Yr-Syp"/>
@@ -414,7 +414,7 @@
         <!--Settings-->
         <scene sceneID="PV5-BC-IAG">
             <objects>
-                <tableViewController id="bkR-NC-m8o" customClass="SettingsTableViewController" customModule="PokeStats" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="bkR-NC-m8o" customClass="SettingsTableViewController" customModule="SwiftyDex" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="FcY-YK-qnm">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -458,6 +458,9 @@
                                                     <state key="normal" title="Clear Cache">
                                                         <color key="titleColor" red="0.95171791319999999" green="0.14342740179999999" blue="0.2414087355" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="clearCache" destination="bkR-NC-m8o" eventType="touchUpInside" id="Ltv-em-LFC"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                             <constraints>

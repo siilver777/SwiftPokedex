@@ -16,7 +16,6 @@ extension FileManager {
     
     public static func documentsURL(childPath: String?) -> URL? {
         if let documentURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first {
-            print(documentURL)
             if let childPath = childPath {
                 return documentURL.appendingPathComponent(childPath)
             }

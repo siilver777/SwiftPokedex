@@ -45,10 +45,10 @@ class PokemonViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         
         loadUI()
         
+        // Gesture Recognizer for sound
         artworkImageView.isUserInteractionEnabled = true
         let gesture = UITapGestureRecognizer(target: self, action: #selector(playSound))
         artworkImageView.addGestureRecognizer(gesture)
@@ -121,7 +121,7 @@ class PokemonViewController: UIViewController {
         navigationItem.title = pokemon.name
         
         // Main information
-        numberLabel.text = "Kanto #00" + String(pokemon.pokedexNumber)
+        numberLabel.text = "Kanto #00" + pokemon.number.stringValue
         firstTypeImageView.image = UIImage(named: "type\(pokemon.type1.rawValue)")
         if let type2 = pokemon.type2 {
             secondTypeImageView.image = UIImage(named: "type\(type2.rawValue)")
@@ -153,53 +153,66 @@ class PokemonViewController: UIViewController {
         
         // Artwork
         
-        let artworkQueue = DispatchQueue(label: "artwork")
-        artworkQueue.async {
-            if let url = URL(string: API.artwork(no: Int(self.pokemon.pokedexNumber))),
-                let data = try? Data(contentsOf: url) {
-                let artwork = UIImage(data: data)
-                DispatchQueue.main.async {
-                    self.artworkImageView.image = artwork
+        if let artworkPath = FileManager.documentsURL(childPath: "artwork_\(self.pokemon.number).png") {
+            if FileManager.default.fileExists(atPath: artworkPath.path) {
+                // Load from disk
+                let artwork = UIImage(contentsOfFile: artworkPath.path)
+                self.artworkImageView.image = artwork
+            }
+            else {
+                // Download and store
+                if let artworkUrl = URL(string: API.artwork(no: self.pokemon.number.intValue)) {
+                    let artworkQueue = DispatchQueue(label: "artwork")
+                    artworkQueue.async {
+                        if let data = try? Data(contentsOf: artworkUrl),
+                            let artwork = UIImage(data: data) {
+                            try? data.write(to: artworkPath, options: .atomic)
+                            
+                            DispatchQueue.main.async {
+                                self.artworkImageView.image = artwork
+                            }
+                        }
+                    }
                 }
             }
         }
         
         // Sound
         
-        if let soundPath = FileManager.documentsURL(childPath: "sound_\(pokemon.pokedexNumber).mp3") {
-            print(soundPath)
-            if FileManager.default.fileExists(atPath: soundPath.path) {
-                print("local")
-                // Load from disk
-                self.audioPlayer = try? AVAudioPlayer(contentsOf: soundPath)
-                print(audioPlayer ?? "local player not ok")
-            }
-            else {
-                print("online")
-                // Download
-                if let soundUrl = URL(string: API.sound(no: Int(pokemon.pokedexNumber))),
-                    let data = try? Data(contentsOf: soundUrl) {
-                    // Save on disk
-                    do {
-                        try data.write(to: soundPath, options: .atomic)
-                    }
-                    catch {
-                        print(error)
-                    }
-                    
-                    // Load the file in the player
-                    self.audioPlayer = try? AVAudioPlayer(data: data)
-                    print(audioPlayer ?? "online player not ok")
+        let soundQueue = DispatchQueue(label: "sound")
+        soundQueue.async {
+            if let soundPath = FileManager.documentsURL(childPath: "sound_\(self.pokemon.number).mp3") {
+                if FileManager.default.fileExists(atPath: soundPath.path) {
+                    // Load from disk
+                    self.audioPlayer = try? AVAudioPlayer(contentsOf: soundPath)
                 }
-                
+                else {
+                    // Download
+                    if let soundUrl = URL(string: API.sound(no: self.pokemon.number.intValue)),
+                        let data = try? Data(contentsOf: soundUrl) {
+                        // Save on disk
+                        try? data.write(to: soundPath, options: .atomic)
+                        
+                        // Load the file in the player
+                        self.audioPlayer = try? AVAudioPlayer(data: data)
+                    }
+                }
             }
         }
     }
     
     func playSound() {
-        print("playSound")
         if let audioPlayer = audioPlayer {
-            print(audioPlayer.play())
+            audioPlayer.play()
+            
+            artworkImageView.transform = CGAffineTransform(translationX: 0, y: 20)
+            UIView.animate(withDuration: 0.4,
+                           delay: 0.0,
+                           usingSpringWithDamping: 0.2,
+                           initialSpringVelocity: 1.0,
+                           options: .curveEaseInOut, animations: {
+                self.artworkImageView.transform = .identity
+            })
         }
     }
 }
