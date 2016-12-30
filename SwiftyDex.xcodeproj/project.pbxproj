@@ -11,7 +11,7 @@
 		D71ECEC61E16AAA20097A860 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D7A5E1C11DF7205400169531 /* Assets.xcassets */; };
 		D72B44481E05B09A0077A1B0 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72B44471E05B09A0077A1B0 /* DataManager.swift */; };
 		D72B444A1E05B1FB0077A1B0 /* FileManager+Documents.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72B44491E05B1FB0077A1B0 /* FileManager+Documents.swift */; };
-		D72B444D1E05B4B50077A1B0 /* PokeStats.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D72B444B1E05B4B50077A1B0 /* PokeStats.xcdatamodeld */; };
+		D72B444D1E05B4B50077A1B0 /* SwiftyDex.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D72B444B1E05B4B50077A1B0 /* SwiftyDex.xcdatamodeld */; };
 		D78FFE681E16782C00BF42EB /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78FFE671E16782C00BF42EB /* SettingsTableViewController.swift */; };
 		D7A5E1BB1DF7205400169531 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A5E1BA1DF7205400169531 /* AppDelegate.swift */; };
 		D7A5E1BD1DF7205400169531 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A5E1BC1DF7205400169531 /* ListViewController.swift */; };
@@ -34,7 +34,7 @@
 		BB51539FE9ADAAC05124F053 /* Pods_SwiftyDex.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftyDex.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D72B44471E05B09A0077A1B0 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		D72B44491E05B1FB0077A1B0 /* FileManager+Documents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FileManager+Documents.swift"; sourceTree = "<group>"; };
-		D72B444C1E05B4B50077A1B0 /* PokeStats.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PokeStats.xcdatamodel; sourceTree = "<group>"; };
+		D72B444C1E05B4B50077A1B0 /* SwiftyDex.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SwiftyDex.xcdatamodel; sourceTree = "<group>"; };
 		D78FFE671E16782C00BF42EB /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		D7A5E1B71DF7205400169531 /* SwiftyDex.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftyDex.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7A5E1BA1DF7205400169531 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -114,7 +114,7 @@
 				D7A5E1C11DF7205400169531 /* Assets.xcassets */,
 				D7A5E1C31DF7205400169531 /* LaunchScreen.storyboard */,
 				D7A5E1C61DF7205400169531 /* Info.plist */,
-				D72B444B1E05B4B50077A1B0 /* PokeStats.xcdatamodeld */,
+				D72B444B1E05B4B50077A1B0 /* SwiftyDex.xcdatamodeld */,
 			);
 			path = SwiftyDex;
 			sourceTree = "<group>";
@@ -285,7 +285,7 @@
 				D72B44481E05B09A0077A1B0 /* DataManager.swift in Sources */,
 				D72B444A1E05B1FB0077A1B0 /* FileManager+Documents.swift in Sources */,
 				D7B4C01A1E0C5DB5002DAC9F /* Pokemon+CoreDataClass.swift in Sources */,
-				D72B444D1E05B4B50077A1B0 /* PokeStats.xcdatamodeld in Sources */,
+				D72B444D1E05B4B50077A1B0 /* SwiftyDex.xcdatamodeld in Sources */,
 				D7BE63AE1DFDC05600909DE3 /* Type.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -472,13 +472,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		D72B444B1E05B4B50077A1B0 /* PokeStats.xcdatamodeld */ = {
+		D72B444B1E05B4B50077A1B0 /* SwiftyDex.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				D72B444C1E05B4B50077A1B0 /* PokeStats.xcdatamodel */,
+				D72B444C1E05B4B50077A1B0 /* SwiftyDex.xcdatamodel */,
 			);
-			currentVersion = D72B444C1E05B4B50077A1B0 /* PokeStats.xcdatamodel */;
-			path = PokeStats.xcdatamodeld;
+			currentVersion = D72B444C1E05B4B50077A1B0 /* SwiftyDex.xcdatamodel */;
+			path = SwiftyDex.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

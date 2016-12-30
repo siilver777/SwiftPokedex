@@ -14,9 +14,9 @@ class DataManager {
     public var context: NSManagedObjectContext?
     
     private init() {
-        if let modelURL = Bundle.main.url(forResource: "PokeStats", withExtension: "momd") {
+        if let modelURL = Bundle.main.url(forResource: "SwiftyDex", withExtension: "momd") {
             if let model = NSManagedObjectModel(contentsOf: modelURL) {
-                if let storageURL = FileManager.docummentsURL(childPath: "PokeStats.db") {
+                if let storageURL = FileManager.documentsURL(childPath: "SwiftyDex.db") {
                     
                     let storeCoordinator = NSPersistentStoreCoordinator(managedObjectModel: model)
                     _ = try? storeCoordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: storageURL, options: nil)
