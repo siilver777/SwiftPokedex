@@ -11,6 +11,7 @@ import AVFoundation
 
 import Alamofire
 import SwiftyJSON
+import FBSDKShareKit
 
 class PokemonViewController: UIViewController {
     
@@ -95,9 +96,19 @@ class PokemonViewController: UIViewController {
     }
     
     @IBAction func share() {
-        let alert = UIAlertController(title: "Not available", message: "Facebook Sharing is not yet available. Stay tuned!", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .default))
-        present(alert, animated: true)
+        if FBSDKAccessToken.current() != nil {
+            let content = FBSDKShareLinkContent()
+            
+            if let url = "http://www.pokepedia.fr/index.php/\(pokemon.name)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) {
+                content.contentURL = URL(string: url)
+                FBSDKShareDialog.show(from: self, with: content, delegate: nil)
+            }
+        }
+        else {
+            let alert = UIAlertController(title: "Log in with Facebook", message: "To share Pokémons, you need to log in with Facebook. You can connect Facebook to SwiftDex inside settings.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default))
+            present(alert, animated: true)
+        }
     }
     
     func loadUI() {

@@ -9,4 +9,6 @@ target 'PokeStats' do
   pod 'SwiftyJSON'
   pod 'Alamofire'
   pod 'PKHUD'
+  pod 'FBSDKLoginKit'
+  pod 'FBSDKShareKit'
 end
