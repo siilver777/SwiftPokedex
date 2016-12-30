@@ -22,6 +22,20 @@ class SettingsTableViewController: UITableViewController {
     }
     
     @IBAction func clearCache() {
+        if let documentsURL = FileManager.documentsURL() {
+            if let files = try? FileManager.default.contentsOfDirectory(atPath: documentsURL.path) {
+                let filesToDelete = files.filter { $0.contains(".png") || $0.contains(".mp3") }
+                
+                for file in filesToDelete {
+                    do {
+                        try FileManager.default.removeItem(at: documentsURL.appendingPathComponent(file, isDirectory: false))
+                    }
+                    catch {
+                        print(error)
+                    }
+                }
+            }
+        }
         
     }
 }
