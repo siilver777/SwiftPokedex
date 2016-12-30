@@ -29,5 +29,6 @@ extension Pokemon {
     @NSManaged public var type2value: Int16
     @NSManaged public var vit: Int16
     @NSManaged public var weight: Double
+    @NSManaged public var favorite: Bool
 
 }

@@ -5,6 +5,7 @@
         <attribute name="atkspe" attributeType="Integer 16" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="def" attributeType="Integer 16" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="defspe" attributeType="Integer 16" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="favorite" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="height" attributeType="Double" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="name" attributeType="String" syncable="YES"/>
         <attribute name="pokedexDescription" attributeType="String" syncable="YES"/>
@@ -14,8 +15,13 @@
         <attribute name="type2value" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="vit" attributeType="Integer 16" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="weight" attributeType="Double" usesScalarValueType="YES" syncable="YES"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="pokedexNumber"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
     </entity>
     <elements>
-        <element name="Pokemon" positionX="-63" positionY="-18" width="128" height="240"/>
+        <element name="Pokemon" positionX="-63" positionY="-18" width="128" height="255"/>
     </elements>
 </model>

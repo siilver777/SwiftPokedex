@@ -31,6 +31,8 @@ class PokemonViewController: UIViewController {
     @IBOutlet weak var defSpeLabel: UILabel!
     @IBOutlet weak var vitLabel: UILabel!
     
+    @IBOutlet weak var favoriteButton: UIButton!
+    
     var pokemon: Pokemon!
     
     lazy var synthesizer: AVSpeechSynthesizer = {
@@ -52,12 +54,23 @@ class PokemonViewController: UIViewController {
     }
     
     @IBAction func favorite(sender: UIButton?) {
-        if let sender = sender {
-            if sender.currentImage == UIImage(named: "favoriteEmpty") {
-                sender.setImage(#imageLiteral(resourceName: "favoriteFilled"), for: .normal)
+        
+        if let context = DataManager.shared.context {
+            pokemon.favorite = !pokemon.favorite
+            
+            do {
+                try context.save()
+                
+                if pokemon.favorite {
+                    favoriteButton.setImage(#imageLiteral(resourceName: "favoriteFilled"), for: .normal)
+                }
+                else {
+                    favoriteButton.setImage(#imageLiteral(resourceName: "favoriteEmpty"), for: .normal)
+                }
+                
             }
-            else {
-                sender.setImage(#imageLiteral(resourceName: "favoriteEmpty"), for: .normal)
+            catch {
+                print(error)
             }
         }
     }
@@ -88,30 +101,38 @@ class PokemonViewController: UIViewController {
     }
     
     func loadUI() {
-        self.navigationItem.title = pokemon.name
+        navigationItem.title = pokemon.name
         
-        self.numberLabel.text = "Kanto #00" + String(pokemon.pokedexNumber)
-        self.firstTypeImageView.image = UIImage(named: "type\(pokemon.type1.rawValue)")
+        numberLabel.text = "Kanto #00" + String(pokemon.pokedexNumber)
+        firstTypeImageView.image = UIImage(named: "type\(pokemon.type1.rawValue)")
         if let type2 = pokemon.type2 {
-            self.secondTypeImageView.image = UIImage(named: "type\(type2.rawValue)")
+            secondTypeImageView.image = UIImage(named: "type\(type2.rawValue)")
         }
         else {
-            self.secondTypeImageView.image = nil
+            secondTypeImageView.image = nil
         }
-        self.heightLabel.text = String(pokemon.height) + "m"
-        self.weightLabel.text = String(pokemon.weight) + "kg"
-        self.descriptionTextView.text = pokemon.pokedexDescription
+        heightLabel.text = String(pokemon.height) + "m"
+        weightLabel.text = String(pokemon.weight) + "kg"
+        descriptionTextView.text = pokemon.pokedexDescription
         
-        self.pvLabel.text = String(pokemon.stats.pv)
-        self.atkLabel.text = String(pokemon.stats.atk)
-        self.defLabel.text = String(pokemon.stats.def)
-        self.atkSpeLabel.text = String(pokemon.stats.atkspe)
-        self.defSpeLabel.text = String(pokemon.stats.defspe)
-        self.vitLabel.text = String(pokemon.stats.vit)
-
+        pvLabel.text = String(pokemon.stats.pv)
+        atkLabel.text = String(pokemon.stats.atk)
+        defLabel.text = String(pokemon.stats.def)
+        atkSpeLabel.text = String(pokemon.stats.atkspe)
+        defSpeLabel.text = String(pokemon.stats.defspe)
+        vitLabel.text = String(pokemon.stats.vit)
+        
+        if pokemon.favorite {
+            favoriteButton.setImage(#imageLiteral(resourceName: "favoriteFilled"), for: .normal)
+        }
+        else {
+            favoriteButton.setImage(#imageLiteral(resourceName: "favoriteEmpty"), for: .normal)
+        }
+        
         let artworkQueue = DispatchQueue(label: "artwork")
         artworkQueue.async {
-            if let data = try? Data(contentsOf: URL(string: API.artwork(no: Int(self.pokemon.pokedexNumber)))!) {
+            if  let url = URL(string: API.artwork(no: Int(self.pokemon.pokedexNumber))),
+                let data = try? Data(contentsOf: url) {
                 let artwork = UIImage(data: data)
                 DispatchQueue.main.async {
                     self.artworkImageView.image = artwork

@@ -373,6 +373,7 @@
                         <outlet property="defSpeLabel" destination="jyw-lb-4eT" id="wUm-zS-0fh"/>
                         <outlet property="descriptionButton" destination="hgi-5m-Sd7" id="jGW-yf-nP0"/>
                         <outlet property="descriptionTextView" destination="wjd-HX-PdL" id="K27-r5-SlH"/>
+                        <outlet property="favoriteButton" destination="Dkz-mC-QEg" id="WHe-bH-rq0"/>
                         <outlet property="firstTypeImageView" destination="9R4-TS-Hdw" id="8HI-6M-bnT"/>
                         <outlet property="heightLabel" destination="QaF-m9-ln4" id="7wL-vj-vkP"/>
                         <outlet property="numberLabel" destination="nne-Hg-nNa" id="tPX-2Y-4qb"/>

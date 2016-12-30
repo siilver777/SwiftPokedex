@@ -11,6 +11,7 @@
 		D72B44481E05B09A0077A1B0 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72B44471E05B09A0077A1B0 /* DataManager.swift */; };
 		D72B444A1E05B1FB0077A1B0 /* FileManager+Documents.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72B44491E05B1FB0077A1B0 /* FileManager+Documents.swift */; };
 		D72B444D1E05B4B50077A1B0 /* PokeStats.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D72B444B1E05B4B50077A1B0 /* PokeStats.xcdatamodeld */; };
+		D78FFE681E16782C00BF42EB /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D78FFE671E16782C00BF42EB /* SettingsTableViewController.swift */; };
 		D7A5E1BB1DF7205400169531 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A5E1BA1DF7205400169531 /* AppDelegate.swift */; };
 		D7A5E1BD1DF7205400169531 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7A5E1BC1DF7205400169531 /* ListViewController.swift */; };
 		D7A5E1C01DF7205400169531 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D7A5E1BE1DF7205400169531 /* Main.storyboard */; };
@@ -32,6 +33,7 @@
 		D72B44471E05B09A0077A1B0 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		D72B44491E05B1FB0077A1B0 /* FileManager+Documents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FileManager+Documents.swift"; sourceTree = "<group>"; };
 		D72B444C1E05B4B50077A1B0 /* PokeStats.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PokeStats.xcdatamodel; sourceTree = "<group>"; };
+		D78FFE671E16782C00BF42EB /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		D7A5E1B71DF7205400169531 /* PokeStats.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PokeStats.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7A5E1BA1DF7205400169531 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D7A5E1BC1DF7205400169531 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 			isa = PBXGroup;
 			children = (
 				D7A5E1BC1DF7205400169531 /* ListViewController.swift */,
+				D78FFE671E16782C00BF42EB /* SettingsTableViewController.swift */,
 				D7ACB9511DFE9A60009C376F /* PokemonViewController.swift */,
 			);
 			name = Controllers;
@@ -272,6 +275,7 @@
 				D7BE63B01DFDC05A00909DE3 /* Stats.swift in Sources */,
 				D7B4C01B1E0C5DB5002DAC9F /* Pokemon+CoreDataProperties.swift in Sources */,
 				D7A5E1BB1DF7205400169531 /* AppDelegate.swift in Sources */,
+				D78FFE681E16782C00BF42EB /* SettingsTableViewController.swift in Sources */,
 				D7A5E1D31DF8093400169531 /* API.swift in Sources */,
 				D7ACB9521DFE9A60009C376F /* PokemonViewController.swift in Sources */,
 				D72B44481E05B09A0077A1B0 /* DataManager.swift in Sources */,
@@ -407,6 +411,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = 5RUJTG3BGA;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = PokeStats/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jpierna.PokeStats;
@@ -424,6 +432,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = 5RUJTG3BGA;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = PokeStats/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jpierna.PokeStats;
