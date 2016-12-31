@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		40B28EAC520F16BD886BA7A0 /* Pods_SwiftyDex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB51539FE9ADAAC05124F053 /* Pods_SwiftyDex.framework */; };
 		D71ECEC61E16AAA20097A860 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D7A5E1C11DF7205400169531 /* Assets.xcassets */; };
+		D71ECEC81E1717AC0097A860 /* DisplayMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = D71ECEC71E1717AC0097A860 /* DisplayMode.swift */; };
 		D72B44481E05B09A0077A1B0 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72B44471E05B09A0077A1B0 /* DataManager.swift */; };
 		D72B444A1E05B1FB0077A1B0 /* FileManager+Documents.swift in Sources */ = {isa = PBXBuildFile; fileRef = D72B44491E05B1FB0077A1B0 /* FileManager+Documents.swift */; };
 		D72B444D1E05B4B50077A1B0 /* SwiftyDex.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D72B444B1E05B4B50077A1B0 /* SwiftyDex.xcdatamodeld */; };
@@ -32,6 +33,7 @@
 		758EE92A7BB8BA050CEA4245 /* Pods-PokeStats.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PokeStats.release.xcconfig"; path = "Pods/Target Support Files/Pods-PokeStats/Pods-PokeStats.release.xcconfig"; sourceTree = "<group>"; };
 		A0DDF4679D6C6AF4E33C529A /* Pods-SwiftyDex.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftyDex.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftyDex/Pods-SwiftyDex.release.xcconfig"; sourceTree = "<group>"; };
 		BB51539FE9ADAAC05124F053 /* Pods_SwiftyDex.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftyDex.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D71ECEC71E1717AC0097A860 /* DisplayMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisplayMode.swift; sourceTree = "<group>"; };
 		D72B44471E05B09A0077A1B0 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		D72B44491E05B1FB0077A1B0 /* FileManager+Documents.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FileManager+Documents.swift"; sourceTree = "<group>"; };
 		D72B444C1E05B4B50077A1B0 /* SwiftyDex.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SwiftyDex.xcdatamodel; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 				D7B4C0191E0C5DB5002DAC9F /* Pokemon+CoreDataProperties.swift */,
 				D7BE63AD1DFDC05600909DE3 /* Type.swift */,
 				D7BE63AF1DFDC05A00909DE3 /* Stats.swift */,
+				D71ECEC71E1717AC0097A860 /* DisplayMode.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -275,6 +278,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D7A5E1CF1DF8056400169531 /* PokemonTableViewCell.swift in Sources */,
+				D71ECEC81E1717AC0097A860 /* DisplayMode.swift in Sources */,
 				D7A5E1BD1DF7205400169531 /* ListViewController.swift in Sources */,
 				D7BE63B01DFDC05A00909DE3 /* Stats.swift in Sources */,
 				D7B4C01B1E0C5DB5002DAC9F /* Pokemon+CoreDataProperties.swift in Sources */,

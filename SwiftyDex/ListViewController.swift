@@ -12,10 +12,14 @@ import CoreData
 import Alamofire
 import SwiftyJSON
 
-class ListViewController: UITableViewController {
+class ListViewController: UIViewController {
+    
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var tabBar: UITabBar!
     
     var pokemons = [Pokemon]()
     var filteredPokemons = [Pokemon]()
+    var displayMode: DisplayMode = .all
     
     let searchController = UISearchController(searchResultsController: nil)
     let miniatureQueue = DispatchQueue(label: "miniatures")
@@ -28,6 +32,14 @@ class ListViewController: UITableViewController {
         
         // Fetch new online Pokemons
         fetchPokemons()
+        
+        // Table View Edge Insets
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: tabBar.frame.size.height, right: 0)
+        tableView.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: tabBar.frame.size.height, right: 0)
+        
+        // Tab Bar Set Up
+        tabBar.selectedItem = tabBar.items?[0]
+        tabBar.items?[0].selectedImage = #imageLiteral(resourceName: "pokedexFilled")
         
         // Search Controller
         searchController.searchResultsUpdater = self
@@ -54,28 +66,100 @@ class ListViewController: UITableViewController {
                     if searchController.isActive && searchController.searchBar.text != "" {
                         return filteredPokemons[indexPath.row]
                     }
-                   return pokemons[indexPath.row]
+                    return pokemons[indexPath.row]
                 }()
                 
                 destinationViewController.pokemon = pokemon
             }
         }
     }
-
-    // MARK: - UITableViewDataSource
     
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    // MARK: - Misc
+    
+    func loadPokemons() {
+        
+        pokemons.removeAll()
+        
+        let fetchRequest: NSFetchRequest<Pokemon> = Pokemon.fetchRequest()
+        let sortDescriptor = NSSortDescriptor(key: "pokedexNumber", ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        
+        if displayMode == .favorites {
+            fetchRequest.predicate = NSPredicate(format: "favorite == YES")
+        }
+        
+        if let context = DataManager.shared.context {
+            do {
+                let rows = try context.fetch(fetchRequest)
+                for pokemon in rows {
+                    if !self.pokemons.contains(where: { pkmn in pkmn.number.intValue == pokemon.number.intValue }) {
+                        self.pokemons.append(pokemon)
+                    }
+                }
+                self.tableView.reloadData()
+            }
+            catch {
+                print(error)
+            }
+        }
+    }
+    
+    func fetchPokemons() {
+        Alamofire.request(API.pokemons).validate().responseJSON { response in
+            switch response.result {
+            case .success(let value):
+                let json = JSON(value).arrayValue
+                
+                if let context = DataManager.shared.context {
+                    for item in json {
+                        if let pokemon = NSEntityDescription.insertNewObject(forEntityName: "Pokemon", into: context) as? Pokemon {
+                            pokemon.populate(json: item)
+                            
+                            //                            if !self.pokemons.contains(where: { pkmn in pkmn.number.intValue == pokemon.number.intValue }) {
+                            //                                self.pokemons.append(pokemon)
+                            //                            }
+                        }
+                    }
+                    DispatchQueue.main.async {
+                        try? context.save()
+                        //                        self.tableView.reloadData()
+                        self.loadPokemons()
+                    }
+                }
+                
+                if let refreshControl = self.tableView.refreshControl {
+                    if refreshControl.isRefreshing {
+                        refreshControl.endRefreshing()
+                    }
+                }
+                
+            case .failure(let error):
+                print(error)
+                
+                if let refreshControl = self.tableView.refreshControl {
+                    if refreshControl.isRefreshing {
+                        refreshControl.endRefreshing()
+                    }
+                }
+            }
+        }
+    }
+}
+
+// MARK: - UITableViewDataSource
+extension ListViewController: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if searchController.isActive && searchController.searchBar.text != "" {
             return filteredPokemons.count
         }
         return pokemons.count
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "PokemonTableViewCell", for: indexPath) as? PokemonTableViewCell else {
             return PokemonTableViewCell(style: .default, reuseIdentifier: "PokemonTableViewCell")
         }
@@ -119,78 +203,43 @@ class ListViewController: UITableViewController {
         
         return cell
     }
+}
+
+ // MARK: - UITableViewDelegate
+extension ListViewController: UITableViewDelegate {
+   
     
-    // MARK: - UITableViewDelegate
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "showPokemon", sender: self)
         tableView.deselectRow(at: indexPath, animated: true)
     }
-    
-    // MARK: - Misc
-    
-    func loadPokemons() {
-        let fetchRequest: NSFetchRequest<Pokemon> = Pokemon.fetchRequest()
-        let sortDescriptor = NSSortDescriptor(key: "pokedexNumber", ascending: true)
-        fetchRequest.sortDescriptors = [sortDescriptor]
-        if let context = DataManager.shared.context {
-            if let rows = try? context.fetch(fetchRequest) {
-                for pokemon in rows {
-                    if !self.pokemons.contains(where: { pkmn in pkmn.number.intValue == pokemon.number.intValue }) {
-                        self.pokemons.append(pokemon)
-                    }
-                }
-                self.tableView.reloadData()
-            }
-        }
-    }
-    
-    func fetchPokemons() {
-        Alamofire.request(API.pokemons).validate().responseJSON { response in
-            switch response.result {
-            case .success(let value):
-                let json = JSON(value).arrayValue
-                
-                if let context = DataManager.shared.context {
-                    for item in json {
-                        if let pokemon = NSEntityDescription.insertNewObject(forEntityName: "Pokemon", into: context) as? Pokemon {
-                            pokemon.populate(json: item)
-                            
-                            if !self.pokemons.contains(where: { pkmn in pkmn.number.intValue == pokemon.number.intValue }) {
-                                self.pokemons.append(pokemon)
-                            }
-                        }
-                    }
-                    DispatchQueue.main.async {
-                        try? context.save()
-                        self.tableView.reloadData()
-                    }
-                }
-              
-                if let refreshControl = self.tableView.refreshControl {
-                    if refreshControl.isRefreshing {
-                        refreshControl.endRefreshing()
-                    }
-                }
-                
-            case .failure(let error):
-                print(error)
-                
-                if let refreshControl = self.tableView.refreshControl {
-                    if refreshControl.isRefreshing {
-                        refreshControl.endRefreshing()
-                    }
-                }
-            }
-        }
-    }
 }
 
+// MARK: - UISearchResultsUpdating
 extension ListViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         filteredPokemons = pokemons.filter {
             $0.name.lowercased().contains(searchController.searchBar.text!.lowercased())
         }
         tableView.reloadData()
+    }
+}
+
+// MARK: - UITabBarDelegate
+extension ListViewController: UITabBarDelegate {
+    func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+        if let items = tabBar.items,
+            let index = items.index(of: item) {
+            switch index {
+            case 0:
+                displayMode = .all
+            case 1:
+                displayMode = .favorites
+            default:
+                break
+            }
+            
+            loadPokemons()
+        }
     }
 }
