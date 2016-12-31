@@ -1,0 +1,10 @@
+/* 
+  Localizable.strings
+  SwiftyDex
+
+  Created by Jason Pierna on 31/12/2016.
+  Copyright © 2016 Jason Pierna. All rights reserved.
+*/
+
+"LOGIN_FACEBOOK_ALERT_TITLE" = "Log in with Facebook";
+"LOGIN_FACEBOOK_ALERT_DESC" = "To share Pokémons, you need to log in with Facebook. You can connect Facebook to SwiftyDex inside settings.";

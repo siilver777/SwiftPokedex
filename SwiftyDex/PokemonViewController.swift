@@ -114,7 +114,7 @@ class PokemonViewController: UIViewController {
             }
         }
         else {
-            let alert = UIAlertController(title: "Log in with Facebook", message: "To share Pokémons, you need to log in with Facebook. You can connect Facebook to SwiftDex inside settings.", preferredStyle: .alert)
+            let alert = UIAlertController(title: "LOGIN_FACEBOOK_ALERT_TITLE".localized, message: "LOGIN_FACEBOOK_ALERT_DESC".localized, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default))
             present(alert, animated: true)
         }

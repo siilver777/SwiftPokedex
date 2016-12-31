@@ -1,0 +1,96 @@
+
+/* Class = "UILabel"; text = "Speed"; ObjectID = "1cs-1m-F12"; */
+"1cs-1m-F12.text" = "Vitesse";
+
+/* Class = "UILabel"; text = "Pokedex description"; ObjectID = "2Ug-hX-jh9"; */
+"2Ug-hX-jh9.text" = "Description du Pokédex";
+
+/* Class = "UILabel"; text = "#number"; ObjectID = "2cE-q6-Tzz"; */
+"2cE-q6-Tzz.text" = "#number";
+
+/* Class = "UINavigationItem"; title = "Settings"; ObjectID = "4Lc-bv-Dk4"; */
+"4Lc-bv-Dk4.title" = "Réglages";
+
+/* Class = "UILabel"; text = "0.0 kg"; ObjectID = "5cV-pt-Wxu"; */
+"5cV-pt-Wxu.text" = "0.0 kg";
+
+/* Class = "UITabBarItem"; title = "All"; ObjectID = "C75-yI-HXy"; */
+"C75-yI-HXy.title" = "Tous";
+
+/* Class = "UIButton"; normalTitle = "Fav"; ObjectID = "Dkz-mC-QEg"; */
+"Dkz-mC-QEg.normalTitle" = "Fav";
+
+/* Class = "UILabel"; text = "Special defense"; ObjectID = "Dyz-Eq-97H"; */
+"Dyz-Eq-97H.text" = "Défense spéciale";
+
+/* Class = "UILabel"; text = "Height"; ObjectID = "EdP-jM-V1H"; */
+"EdP-jM-V1H.text" = "Poids";
+
+/* Class = "UIButton"; normalTitle = "Clear Cache"; ObjectID = "Ffy-0X-qEa"; */
+"Ffy-0X-qEa.normalTitle" = "Vider le cache";
+
+/* Class = "UILabel"; text = "Special attack"; ObjectID = "Jhq-2P-eXX"; */
+"Jhq-2P-eXX.text" = "Attaque spéciale";
+
+/* Class = "UINavigationItem"; title = "Name"; ObjectID = "K72-Jb-CmL"; */
+"K72-Jb-CmL.title" = "Nom";
+
+/* Class = "UILabel"; text = "0"; ObjectID = "NgE-I9-Oxg"; */
+"NgE-I9-Oxg.text" = "0";
+
+/* Class = "UILabel"; text = "HP"; ObjectID = "OMT-8A-GJq"; */
+"OMT-8A-GJq.text" = "PV";
+
+/* Class = "UILabel"; text = "0.0 m"; ObjectID = "QaF-m9-ln4"; */
+"QaF-m9-ln4.text" = "0.0 m";
+
+/* Class = "UILabel"; text = "Defense"; ObjectID = "Rsn-pW-74X"; */
+"Rsn-pW-74X.text" = "Défense";
+
+/* Class = "UILabel"; text = "Name"; ObjectID = "TOw-JD-780"; */
+"TOw-JD-780.text" = "Nom";
+
+/* Class = "UILabel"; text = "Base stats"; ObjectID = "Z3j-Or-mr4"; */
+"Z3j-Or-mr4.text" = "Statistiques de base";
+
+/* Class = "UITableViewSection"; footerTitle = "This will clear the application cache. You will need an Internet connection to download back all images."; ObjectID = "fnt-yb-rGW"; */
+"fnt-yb-rGW.footerTitle" = "Cela va vider le cache de l'application. Vous aurez besoin d'une connexion à Internet pour récupérer toutes les images.";
+
+/* Class = "UILabel"; text = "0"; ObjectID = "h8F-Ju-fgZ"; */
+"h8F-Ju-fgZ.text" = "0";
+
+/* Class = "UIButton"; normalTitle = "PLAY"; ObjectID = "hgi-5m-Sd7"; */
+"hgi-5m-Sd7.normalTitle" = "PLAY";
+
+/* Class = "UITableViewSection"; footerTitle = "Log in with Facebook to share your Pokémons."; ObjectID = "jgA-MC-2hP"; */
+"jgA-MC-2hP.footerTitle" = "Connectez-vous à Facebook pour partager vos Pokémons.";
+
+/* Class = "UITableViewSection"; headerTitle = "Facebook Login"; ObjectID = "jgA-MC-2hP"; */
+"jgA-MC-2hP.headerTitle" = "Connexion à Facebook";
+
+/* Class = "UILabel"; text = "0"; ObjectID = "jyw-lb-4eT"; */
+"jyw-lb-4eT.text" = "0";
+
+/* Class = "UILabel"; text = "Height"; ObjectID = "lv3-js-8nO"; */
+"lv3-js-8nO.text" = "Taille";
+
+/* Class = "UILabel"; text = "Attack"; ObjectID = "lx0-5p-OdC"; */
+"lx0-5p-OdC.text" = "Attaque";
+
+/* Class = "UILabel"; text = "Region #number"; ObjectID = "nne-Hg-nNa"; */
+"nne-Hg-nNa.text" = "Region #number";
+
+/* Class = "UILabel"; text = "0"; ObjectID = "qpf-qa-Tx7"; */
+"qpf-qa-Tx7.text" = "0";
+
+/* Class = "UINavigationItem"; title = "All Pokemons"; ObjectID = "tah-5g-Efo"; */
+"tah-5g-Efo.title" = "Tous les Pokémons";
+
+/* Class = "UILabel"; text = "0"; ObjectID = "uVa-CZ-2Du"; */
+"uVa-CZ-2Du.text" = "0";
+
+/* Class = "UILabel"; text = "0"; ObjectID = "w7E-Nt-tKP"; */
+"w7E-Nt-tKP.text" = "0";
+
+/* Class = "UITextView"; text = "Description"; ObjectID = "wjd-HX-PdL"; */
+"wjd-HX-PdL.text" = "Description";
