@@ -185,8 +185,15 @@ extension ListViewController: UITableViewDataSource {
         }()
         
         
+        let numberFormatter = NumberFormatter()
+        numberFormatter.minimumIntegerDigits = 3
+        numberFormatter.maximumIntegerDigits = 3
+        numberFormatter.allowsFloats = false
+        
+        if let number = numberFormatter.string(from: pokemon.number) {
+            cell.pokemonNumberLabel.text = "#" + number
+        }
         cell.pokemonNameLabel.text = pokemon.name
-        cell.pokemonNumberLabel.text = "#" + pokemon.number.stringValue
         
         if let miniaturePath = FileManager.documentsURL(childPath: "mini_\(pokemon.number).png") {
             if FileManager.default.fileExists(atPath: miniaturePath.path) {
@@ -243,8 +250,10 @@ extension ListViewController: UITabBarDelegate {
             switch index {
             case 0:
                 displayMode = .all
+                title = "ALL_NAVBAR_TITLE".localized
             case 1:
                 displayMode = .favorites
+                title = "FAV_NAVBAR_TITLE".localized
             default:
                 break
             }

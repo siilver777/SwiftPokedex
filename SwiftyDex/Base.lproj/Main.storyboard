@@ -66,6 +66,7 @@
                                                     <constraint firstAttribute="height" constant="50" id="cm3-vE-gr5"/>
                                                     <constraint firstAttribute="width" constant="50" id="mdL-RH-lKg"/>
                                                 </constraints>
+                                                <color key="tintColor" red="0.86469233040000004" green="0.041649930180000003" blue="0.1756020784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <state key="normal" title="PLAY" image="playButton"/>
                                                 <connections>
                                                     <action selector="readDescription" destination="Ltf-kQ-wbu" eventType="touchUpInside" id="Dot-lG-sC7"/>
@@ -86,7 +87,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HP" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OMT-8A-GJq">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HP" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="OMT-8A-GJq">
                                                 <rect key="frame" x="8" y="614" width="164.5" height="21"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                 <nil key="textColor"/>
@@ -98,7 +99,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Attack" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lx0-5p-OdC">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Attack" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="lx0-5p-OdC">
                                                 <rect key="frame" x="8" y="643" width="164.5" height="21"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                 <nil key="textColor"/>
@@ -110,7 +111,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Defense" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rsn-pW-74X">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Defense" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Rsn-pW-74X">
                                                 <rect key="frame" x="8" y="672" width="164.5" height="21"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                 <nil key="textColor"/>
@@ -122,7 +123,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Special attack" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jhq-2P-eXX">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Special attack" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Jhq-2P-eXX">
                                                 <rect key="frame" x="8" y="701" width="164.5" height="21"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                 <nil key="textColor"/>
@@ -134,7 +135,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Special defense" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dyz-Eq-97H">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Special defense" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Dyz-Eq-97H">
                                                 <rect key="frame" x="8" y="730" width="164.5" height="21"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                 <nil key="textColor"/>
@@ -146,7 +147,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Speed" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1cs-1m-F12">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Speed" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="1cs-1m-F12">
                                                 <rect key="frame" x="8" y="759" width="164.5" height="21"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                 <nil key="textColor"/>
@@ -188,6 +189,7 @@
                                                     <constraint firstAttribute="width" constant="30" id="T3n-h8-RdZ"/>
                                                     <constraint firstAttribute="height" constant="30" id="cJC-0F-cEg"/>
                                                 </constraints>
+                                                <color key="tintColor" red="0.86469233040000004" green="0.041649930180000003" blue="0.1756020784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <state key="normal" title="Fav" image="favoriteEmpty"/>
                                                 <connections>
                                                     <action selector="favoriteWithSender:" destination="Ltf-kQ-wbu" eventType="touchUpInside" id="AnG-Ii-bIy"/>
@@ -304,11 +306,13 @@
                         <outlet property="descriptionButton" destination="hgi-5m-Sd7" id="jGW-yf-nP0"/>
                         <outlet property="descriptionTextView" destination="wjd-HX-PdL" id="K27-r5-SlH"/>
                         <outlet property="favoriteButton" destination="Dkz-mC-QEg" id="WHe-bH-rq0"/>
+                        <outlet property="firstTypeAlignmentConstraint" destination="iwf-hm-xeY" id="suv-nO-XU2"/>
                         <outlet property="firstTypeImageView" destination="9R4-TS-Hdw" id="8HI-6M-bnT"/>
                         <outlet property="heightLabel" destination="QaF-m9-ln4" id="7wL-vj-vkP"/>
                         <outlet property="numberLabel" destination="nne-Hg-nNa" id="tPX-2Y-4qb"/>
                         <outlet property="pvLabel" destination="NgE-I9-Oxg" id="aWJ-ZF-khA"/>
                         <outlet property="secondTypeImageView" destination="8DE-K4-yNc" id="3AH-EC-6Rr"/>
+                        <outlet property="secondTypeWidthConstraint" destination="806-om-Fw5" id="PGJ-wb-hq1"/>
                         <outlet property="vitLabel" destination="w7E-Nt-tKP" id="6MP-b4-3tE"/>
                         <outlet property="weightLabel" destination="5cV-pt-Wxu" id="l7C-ux-4Z5"/>
                     </connections>
@@ -325,11 +329,16 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="QOH-7c-Gjp">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="barTintColor" red="0.8646923303604126" green="0.04164993017911911" blue="0.17560207843780518" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <userDefinedRuntimeAttributes>
                         <userDefinedRuntimeAttribute type="color" keyPath="view.backgroundColor">
-                            <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="value" red="0.87623745203018188" green="0.17536965012550354" blue="0.28889378905296326" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
@@ -491,6 +500,9 @@
                                     <tabBarItem title="All" image="pokedexEmpty" id="C75-yI-HXy"/>
                                     <tabBarItem systemItem="favorites" id="xdn-lh-hQK"/>
                                 </items>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="barTintColor" red="0.86469233040000004" green="0.041649930180000003" blue="0.1756020784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="selectedImageTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="delegate" destination="00A-wQ-GUb" id="R3L-8R-W6W"/>
                                 </connections>

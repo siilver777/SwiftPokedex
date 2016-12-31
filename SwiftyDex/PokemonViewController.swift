@@ -36,6 +36,10 @@ class PokemonViewController: UIViewController {
     
     @IBOutlet weak var favoriteButton: UIButton!
     
+    @IBOutlet weak var firstTypeAlignmentConstraint: NSLayoutConstraint!
+    @IBOutlet weak var secondTypeWidthConstraint: NSLayoutConstraint!
+    
+    
     var pokemon: Pokemon!
     var audioPlayer: AVAudioPlayer?
     
@@ -125,13 +129,47 @@ class PokemonViewController: UIViewController {
         navigationItem.title = pokemon.name
         
         // Main information
-        numberLabel.text = "Kanto #00" + pokemon.number.stringValue
+        var region = ""
+        
+        if pokemon.number.intValue <= 151 {
+            region = "REGION_1".localized
+        }
+        else if pokemon.number.intValue <= 251 {
+            region = "REGION_2".localized
+        }
+        else if pokemon.number.intValue <= 386 {
+            region = "REGION_3".localized
+        }
+        else if pokemon.number.intValue <= 493 {
+            region = "REGION_4".localized
+        }
+        else if pokemon.number.intValue <= 649 {
+            region = "REGION_5".localized
+        }
+        else if pokemon.number.intValue <= 721 {
+            region = "REGION_6".localized
+        }
+        else {
+            region = "REGION_7".localized
+        }
+        
+        let numberFormatter = NumberFormatter()
+        numberFormatter.minimumIntegerDigits = 3
+        numberFormatter.maximumIntegerDigits = 3
+        numberFormatter.allowsFloats = false
+        
+        if let number = numberFormatter.string(from: pokemon.number) {
+            numberLabel.text = region + " #" + number
+        }
+    
         firstTypeImageView.image = UIImage(named: "type\(pokemon.type1.rawValue)")
         if let type2 = pokemon.type2 {
             secondTypeImageView.image = UIImage(named: "type\(type2.rawValue)")
         }
         else {
             secondTypeImageView.image = nil
+            secondTypeWidthConstraint.constant = 0
+            firstTypeAlignmentConstraint.constant = 0
         }
         heightLabel.text = String(pokemon.height) + "m"
         weightLabel.text = String(pokemon.weight) + "kg"

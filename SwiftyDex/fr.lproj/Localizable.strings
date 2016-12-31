@@ -6,5 +6,20 @@
   Copyright © 2016 Jason Pierna. All rights reserved.
 */
 
+/* Facebook Alert */
+
 "LOGIN_FACEBOOK_ALERT_TITLE" = "Connectez-vous à Facebook";
 "LOGIN_FACEBOOK_ALERT_DESC" = "Pour partager des Pokémons, vous avez besoin de vous connectez à Facebook. Vous pouvez vous connecter Facebook à SwiftyDex dans les réglages.";
+
+/* Pokemon Regions */
+"REGION_1" = "Kanto";
+"REGION_2" = "Johto";
+"REGION_3" = "Hoenn";
+"REGION_4" = "Sinnoh";
+"REGION_5" = "Unys";
+"REGION_6" = "Kalos";
+"REGION_6" = "Alola";
+
+/* Navigation bar titles */
+"ALL_NAVBAR_TITLE" = "Tous les Pokémons";
+"FAV_NAVBAR_TITLE" = "Pokémons favoris";
