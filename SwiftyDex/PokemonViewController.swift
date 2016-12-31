@@ -8,6 +8,8 @@
 
 import UIKit
 import AVFoundation
+import CoreSpotlight
+import MobileCoreServices
 
 import Alamofire
 import SwiftyJSON
@@ -69,9 +71,11 @@ class PokemonViewController: UIViewController {
                 
                 if pokemon.favorite {
                     favoriteButton.setImage(#imageLiteral(resourceName: "favoriteFilled"), for: .normal)
+                    index()
                 }
                 else {
                     favoriteButton.setImage(#imageLiteral(resourceName: "favoriteEmpty"), for: .normal)
+                    deindex()
                 }
                 
             }
@@ -213,6 +217,35 @@ class PokemonViewController: UIViewController {
                            options: .curveEaseInOut, animations: {
                 self.artworkImageView.transform = .identity
             })
+        }
+    }
+    
+    func index() {
+        let attributeSet = CSSearchableItemAttributeSet(itemContentType: kUTTypeText as String)
+        attributeSet.title = pokemon.name
+        attributeSet.contentDescription = pokemon.pokedexDescription
+        attributeSet.thumbnailURL = FileManager.documentsURL(childPath: "artwork_\(pokemon.number).png")
+        
+        let item = CSSearchableItem(uniqueIdentifier: pokemon.name, domainIdentifier: "com.jpierna.SwiftyDex", attributeSet: attributeSet)
+        item.expirationDate = Date.distantFuture
+        CSSearchableIndex.default().indexSearchableItems([item]) { error in
+            if let error = error {
+                print("Indexing error: \(error)")
+            }
+            else {
+                print("Search item successfully indexed!")
+            }
+        }
+    }
+    
+    func deindex() {
+        CSSearchableIndex.default().deleteSearchableItems(withIdentifiers: [pokemon.name]) { error in
+            if let error = error {
+                print("Deindexing error: \(error)")
+            }
+            else {
+                print("Search item successfully deindexed!")
+            }
         }
     }
 }

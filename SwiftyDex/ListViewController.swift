@@ -59,6 +59,12 @@ class ListViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showPokemon" {
+            
+            if let pokemon = sender as? Pokemon {
+                let destinationViewController = segue.destination as! PokemonViewController
+                destinationViewController.pokemon = pokemon
+            }
+            
             if let indexPath = tableView.indexPathForSelectedRow {
                 let destinationViewController = segue.destination as! PokemonViewController
                 
@@ -75,6 +81,10 @@ class ListViewController: UIViewController {
     }
     
     // MARK: - Misc
+    
+    func segueFromPokemon(_ pokemon: Pokemon) {
+        performSegue(withIdentifier: "showPokemon", sender: pokemon)
+    }
     
     func loadPokemons() {
         

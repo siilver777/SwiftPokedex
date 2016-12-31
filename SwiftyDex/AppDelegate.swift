@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import CoreData
+import CoreSpotlight
+
 import FBSDKCoreKit
 
 @UIApplicationMain
@@ -48,6 +51,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                                                      open: url,
                                                                      sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as! String!,
                                                                      annotation: options[UIApplicationOpenURLOptionsKey.annotation])
+    }
+    
+    func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([Any]?) -> Void) -> Bool {
+        if userActivity.activityType == CSSearchableItemActionType {
+            if let uniqueIdentifier = userActivity.userInfo?[CSSearchableItemActivityIdentifier] as? String {
+                if let navigationController = window?.rootViewController as? UINavigationController {
+                    if let listViewController = navigationController.topViewController as? ListViewController {
+                        let fetchRequest: NSFetchRequest<Pokemon> = Pokemon.fetchRequest()
+                        fetchRequest.predicate = NSPredicate(format: "name == %@", uniqueIdentifier)
+                        
+                        if let context = DataManager.shared.context {
+                            do {
+                                let pokemon = try context.fetch(fetchRequest)[0]
+                                listViewController.segueFromPokemon(pokemon) 
+                            }
+                            catch {
+                                print(error)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return true
     }
 }
 
