@@ -90,11 +90,13 @@ class ListViewController: UIViewController {
         
         pokemons.removeAll()
         
+        // Fetch all pokemons
         let fetchRequest: NSFetchRequest<Pokemon> = Pokemon.fetchRequest()
         let sortDescriptor = NSSortDescriptor(key: "pokedexNumber", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
         
         if displayMode == .favorites {
+            // Fetch only favorites
             fetchRequest.predicate = NSPredicate(format: "favorite == YES")
         }
         
@@ -102,6 +104,7 @@ class ListViewController: UIViewController {
             do {
                 let rows = try context.fetch(fetchRequest)
                 for pokemon in rows {
+                    // Avoids duplicate
                     if !self.pokemons.contains(where: { pkmn in pkmn.number.intValue == pokemon.number.intValue }) {
                         self.pokemons.append(pokemon)
                     }
@@ -124,15 +127,10 @@ class ListViewController: UIViewController {
                     for item in json {
                         if let pokemon = NSEntityDescription.insertNewObject(forEntityName: "Pokemon", into: context) as? Pokemon {
                             pokemon.populate(json: item)
-                            
-                            //                            if !self.pokemons.contains(where: { pkmn in pkmn.number.intValue == pokemon.number.intValue }) {
-                            //                                self.pokemons.append(pokemon)
-                            //                            }
                         }
                     }
                     DispatchQueue.main.async {
                         try? context.save()
-                        //                        self.tableView.reloadData()
                         self.loadPokemons()
                     }
                 }
@@ -184,7 +182,7 @@ extension ListViewController: UITableViewDataSource {
             return pokemons[indexPath.row]
         }()
         
-        
+        // Format Pokedex number to 3-digit value
         let numberFormatter = NumberFormatter()
         numberFormatter.minimumIntegerDigits = 3
         numberFormatter.maximumIntegerDigits = 3

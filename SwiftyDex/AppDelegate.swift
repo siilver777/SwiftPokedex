@@ -55,6 +55,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, willContinueUserActivityWithType userActivityType: String) -> Bool {
         if let navigationController = window?.rootViewController as? UINavigationController {
+            // Pop the last opened Pokedex if app is in background
             navigationController.popViewController(animated: false)
         }
         
@@ -62,15 +63,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([Any]?) -> Void) -> Bool {
+        
+        // If we're coming from Core Spotlight
         if userActivity.activityType == CSSearchableItemActionType {
             if let uniqueIdentifier = userActivity.userInfo?[CSSearchableItemActivityIdentifier] as? String {
+                // Access view controller hierarchy
                 if let navigationController = window?.rootViewController as? UINavigationController {
                     if let listViewController = navigationController.topViewController as? ListViewController {
+                        
+                        // Fetch Pokemon from database
                         let fetchRequest: NSFetchRequest<Pokemon> = Pokemon.fetchRequest()
                         fetchRequest.predicate = NSPredicate(format: "name == %@", uniqueIdentifier)
                         
                         if let context = DataManager.shared.context {
                             do {
+                                // Pass pokemon to view
                                 let pokemon = try context.fetch(fetchRequest)[0]
                                 listViewController.segueFromPokemon(pokemon) 
                             }

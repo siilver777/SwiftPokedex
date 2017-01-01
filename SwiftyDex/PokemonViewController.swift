@@ -247,6 +247,7 @@ class PokemonViewController: UIViewController {
         if let audioPlayer = audioPlayer {
             audioPlayer.play()
             
+            // Animate the Pokemon artwork
             artworkImageView.transform = CGAffineTransform(translationX: 0, y: 20)
             UIView.animate(withDuration: 0.4,
                            delay: 0.0,
@@ -259,6 +260,7 @@ class PokemonViewController: UIViewController {
     }
     
     func index() {
+        // Creating Indexable item in CoreSpotlight
         let attributeSet = CSSearchableItemAttributeSet(itemContentType: kUTTypeText as String)
         attributeSet.title = pokemon.name
         attributeSet.contentDescription = pokemon.pokedexDescription
