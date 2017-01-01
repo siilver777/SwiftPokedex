@@ -53,6 +53,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                                                      annotation: options[UIApplicationOpenURLOptionsKey.annotation])
     }
     
+    func application(_ application: UIApplication, willContinueUserActivityWithType userActivityType: String) -> Bool {
+        if let navigationController = window?.rootViewController as? UINavigationController {
+            navigationController.popViewController(animated: false)
+        }
+        
+        return true
+    }
+    
     func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([Any]?) -> Void) -> Bool {
         if userActivity.activityType == CSSearchableItemActionType {
             if let uniqueIdentifier = userActivity.userInfo?[CSSearchableItemActivityIdentifier] as? String {
